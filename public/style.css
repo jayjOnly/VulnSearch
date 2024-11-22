@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'GeistMono-med';
+    src: url('font/GeistMono-Medium.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GeistMono-bold';
+    src: url('font/GeistMono-ExtraBold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GeistMono-reg';
+    src: url('font/GeistMono-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
