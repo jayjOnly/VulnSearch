@@ -7,6 +7,25 @@
 </head>
 <body>
     <div class="container">
+        <!-- Search Box -->
+        <div class="search-container">
+            <form action="{{ route('search.results') }}" method="POST">
+                @csrf
+                <div class="search-content">
+                    <textarea
+                        class="search-box"
+                        placeholder="Search for any vulnerability"
+                        rows="1"
+                        name="query"
+                        oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
+                    ></textarea>
+                    <button class="search-button">
+                        <div class="search-icon"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+
         <h1>Search Results for "{{ $query }}":</h1>
 
         <div class="results-container">
@@ -233,6 +252,69 @@
         transform: translateX(4px);
     }
 
+    /* Search Box */
+    .search-container {
+        background: rgba(26, 26, 26, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+    }
+    .search-content {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .search-box {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 1.2rem;
+        outline: none;
+        padding-right: 1rem;
+        min-height: 24px;
+        max-height: 150px;
+        resize: none; /* Prevents manual resizing */
+        overflow-y: auto; /* Adds scrollbar when needed */
+        word-wrap: break-word; /* Ensures words wrap */
+        white-space: pre-wrap; /* Preserves whitespace and wrapping */
+        line-height: 1.5;
+    }
+
+    .search-box::placeholder {
+        color: #808080;
+    }
+
+    .search-button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        margin-top: 2px; /* Aligns with first line of text */
+    }
+
+    .search-icon {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .search-icon::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 2px;
+        background: #ffffff;
+        transform: rotate(45deg);
+        bottom: -5px;
+        right: -5px;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 640px) {
         .card-header {
