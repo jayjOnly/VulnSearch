@@ -27,5 +27,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/search', [SearchController::class, 'search'])->name('search.results');
 
     Route::get('/result', [SearchResultController::class, 'show'])->name('result');
-    Route::get('/detail', [ResultDetailController::class, 'show'])->name('detail');
+    Route::get('/vulnerabilities/{id}', [ResultDetailController::class, 'show'])->name('vulnerabilities.show');
 });

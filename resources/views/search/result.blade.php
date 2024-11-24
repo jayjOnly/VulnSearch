@@ -57,10 +57,10 @@
                                 <h3 class="cve-id">{{ $vulnerability->cve_id }}</h3>
                                 <span class="severity-badge {{ $severityClass }}">{{ $vulnerability->severity }}</span>
                             </div>
-                            <p class="description">{{ $vulnerability->description }}</p>
+                            <p class="description">{{ Str::limit($vulnerability->description, 50) }}</p>
                             <div class="card-footer">
                                 <span class="cvss-score">CVSS Score: {{ $vulnerability->cvss_score }}</span>
-                                <a href="#" class="details-link">View Details</a>
+                                <a href={{ route('vulnerabilities.show', $vulnerability->id) }} class="details-link">View Details</a>
                             </div>
                         </div>
                     @endforeach
