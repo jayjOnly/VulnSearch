@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>VulnSearch</h1>
+        <h1><a href="#">VulnSearch</a></h1>
         <div class="header-buttons">
             <a href="{{ route('login') }}">Login</a>
             <a href="{{ route('register') }}">Register</a>
@@ -20,7 +20,7 @@
             <div class="text-content">
                 <h2>Welcome to VulnSearch!</h2>
                 <p>VulnSearch is an advanced vulnerability search platform designed to help cybersecurity professionals, researchers, and software developers discover the latest security vulnerabilities in the software and systems they use. With a simple and intuitive interface, VulnSearch provides up-to-date information on vulnerabilities, CVSS scores, severity levels, and reliable sources, all in one place.</p>
-                <a href="#" class="try-now-button">Try Now!</a>
+                <a href="{{route('search')}}" class="try-now-button">Try Now!</a>
             </div>
             <div class="image-placeholder">
                 <img src="{{ asset('images/gambar.png') }}" alt="image" class="resize-image">
@@ -54,8 +54,10 @@
         font-family: 'GeistMono-Bold', sans-serif;
     }
 
-    header h1 {
+    header h1 a {
         font-size: 1.5rem;
+        color: white;
+        text-decoration: none;
     }
 
     .header-buttons a {

@@ -18,3 +18,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/register', [RegisterController::class, 'register']);
 });
+
+Route::get('/result', function () {
+    return view('search.result');
+})->name('result');
+
+Route::get('/detail', function () {
+    return view('search.detail');
+})->name('detail');

@@ -26,8 +26,8 @@
             <!-- Search Box -->
             <div class="search-container">
                 <div class="search-content">
-                    <textarea 
-                        class="search-box" 
+                    <textarea
+                        class="search-box"
                         placeholder="Search for any vulnerability"
                         rows="1"
                         oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
@@ -64,7 +64,7 @@
         background-color: #1a1a1a;
         color: #fff;
         min-height: 100vh;
-        background-image: 
+        background-image:
             linear-gradient(rgba(40, 40, 40, 0.2) 1px, transparent 1px),
             linear-gradient(90deg, rgba(40, 40, 40, 0.2) 1px, transparent 1px);
         background-size: 40px 40px;
@@ -138,7 +138,7 @@
         border-right: 3px solid #ffffff;
         white-space: nowrap;
         overflow: hidden;
-        animation: 
+        animation:
             typing 2s steps(8),
             cursor .4s step-end infinite alternate;
         width: 0;
@@ -146,11 +146,11 @@
     }
 
     @keyframes typing {
-        from { 
+        from {
             width: 0;
             border-right-color: #ffffff;
         }
-        to { 
+        to {
             width: 8ch;
             border-right-color: transparent;
         }
@@ -162,12 +162,12 @@
 
     /* Setelah animasi selesai, hilangkan border */
     .welcome h1 {
-        animation: 
+        animation:
             typing 2s steps(8) forwards,
             cursor .4s step-end infinite alternate;
         animation-iteration-count: 1, 5; /* Kursor akan berkedip 5 kali saja */
     }
-    
+
     .search-container {
         background: rgba(26, 26, 26, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -178,7 +178,7 @@
 
     .search-content {
         display: flex;
-        align-items: flex-start; 
+        align-items: flex-start;
     }
 
     .search-box {
@@ -269,7 +269,7 @@
         .header {
             padding: 1rem;
         }
-        
+
         .main-content {
             padding: 0 1rem;
         }
