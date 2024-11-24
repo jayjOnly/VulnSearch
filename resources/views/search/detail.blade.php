@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vulnerability Details</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -16,11 +17,13 @@
             <div class="card-header">
                 <div class="header-left">
                     <h1 class="cve-id">{{ $vulnerability->cve_id }}</h1>
-                    <span class="severity-badge high">{{ $vulnerability->severity }}</span>
+                    <span class="severity-badge {{ strtolower($vulnerability->severity) }}">{{ $vulnerability->severity }}</span>
                 </div>
-                <button class="bookmark-btn" title="Bookmark this vulnerability">
-                    <i class="far fa-bookmark"></i>
-                </button>
+                @auth
+                    <button id="bookmarkBtn" class="bookmark-btn" data-vulnerability-id="{{ $vulnerability->id }}">
+                        <i class="{{ $isBookmarked ? 'fas' : 'far' }} fa-bookmark"></i>
+                    </button>
+                @endauth
             </div>
 
             <div class="details-section">
@@ -33,31 +36,63 @@
             <div class="details-section">
                 <h2 class="section-title">CVSS Score</h2>
                 <div class="section-content">
-                    <span class="cvss-score">{{ $vulnerability->cvss_score }}</span> (Critical)
+                    <span class="cvss-score">{{ $vulnerability->cvss_score }}</span>
                 </div>
             </div>
 
             <div class="details-section">
                 <h2 class="section-title">Source</h2>
                 <div class="section-content">
-                    <a href="#" class="source-link" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2023-XXXX</a>
+                    <a href="#" class="source-link" target="_blank">https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Simple bookmark toggle functionality
-        document.querySelector('.bookmark-btn').addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                this.classList.add('active');
-            } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                this.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            
+            if (bookmarkBtn) {
+                bookmarkBtn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    const vulnerabilityId = this.dataset.vulnerabilityId;
+    
+                    // Menggunakan metode fetch dengan konfigurasi yang lebih lengkap
+                    fetch(`/bookmark/${vulnerabilityId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json'
+                        },
+                        credentials: 'same-origin'  // Penting untuk mengirim cookie
+                    })
+                    .then(response => {
+                        // Cek apakah respons OK
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Debug: Log respon dari server
+                        console.log('Bookmark response:', data);
+    
+                        if (data.status === 'added') {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                        } else if (data.status === 'removed') {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                        }
+                    })
+                    .catch(error => {
+                        // Tangani error
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat memproses bookmark');
+                    });
+                });
             }
         });
     </script>
@@ -96,7 +131,7 @@
         backdrop-filter: blur(5px);
     }
 
-    .card-header {
+ .card-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -114,11 +149,6 @@
         font-weight: bold;
         margin-bottom: 0.5rem;
         color: #4dabf7;
-    }
-
-    .cve-name {
-        font-size: 1.1rem;
-        color: #b3b3b3;
     }
 
     .bookmark-btn {
@@ -148,12 +178,6 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-top: 0.5rem;
-    }
-
-    .severity-badge.high {
-        background-color: rgba(255, 68, 68, 0.2);
-        color: #ff4444;
-        border: 1px solid rgba(255, 68, 68, 0.3);
     }
 
     .details-section {
@@ -194,7 +218,6 @@
         text-decoration: underline;
     }
 
-    /* Back button */
     .back-btn {
         display: inline-flex;
         align-items: center;

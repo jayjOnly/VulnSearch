@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -57,5 +60,16 @@ class User extends Authenticatable
                 $model->{$model->getKeyName()} = (string) Str::uuid();
             }
         });
+    }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    // Metode untuk memeriksa apakah sudah bookmark
+    public function hasBookmarkedVulnerability($vulnerabilityId)
+    {
+        return $this->bookmarks()->where('vulnerability_id', $vulnerabilityId)->exists();
     }
 }

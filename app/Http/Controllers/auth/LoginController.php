@@ -24,6 +24,7 @@ class LoginController extends Controller
         $credentials = $request->validated();
 
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             $defaultRedirect = redirect()->intended('search');
             return $defaultRedirect;
         }

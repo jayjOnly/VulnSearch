@@ -3,64 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
-use App\Http\Requests\StoreBookmarkRequest;
-use App\Http\Requests\UpdateBookmarkRequest;
+use App\Models\Vulnerability;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BookmarkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function toggleBookmark(Request $request, $vulnerabilityId)
     {
-        //
-    }
+        // Pastikan pengguna sudah login
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $user = auth()->user();
+        $bookmark = $user->bookmarks()->where('vulnerability_id', $vulnerabilityId)->first();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBookmarkRequest $request)
-    {
-        //
-    }
+        if ($bookmark) {
+            // Jika sudah ada, hapus bookmark
+            $bookmark->delete();
+            return response()->json(['status' => 'removed']);
+        } else {
+            // Jika belum ada, tambahkan bookmark
+            $newBookmark = new Bookmark();
+            $newBookmark->user_id = Auth::id();
+            $newBookmark->vulnerability_id = $vulnerabilityId;
+            $newBookmark->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Bookmark $bookmark)
-    {
-        //
-    }
+            return response()->json(['status' => 'added']);
+        }
+    }   
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bookmark $bookmark)
+    public function showBookmarks()
     {
-        //
-    }
+        $userId = Auth::id();
+        $bookmarks = Bookmark::where('user_id', $userId)->with('vulnerability')->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBookmarkRequest $request, Bookmark $bookmark)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bookmark $bookmark)
-    {
-        //
+        return view('bookmark', compact('bookmarks'));
     }
 }
