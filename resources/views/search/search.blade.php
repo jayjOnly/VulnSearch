@@ -29,17 +29,21 @@
 
             <!-- Search Box -->
             <div class="search-container">
-                <div class="search-content">
-                    <textarea
-                        class="search-box"
-                        placeholder="Search for any vulnerability"
-                        rows="1"
-                        oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
-                    ></textarea>
-                    <button class="search-button">
-                        <div class="search-icon"></div>
-                    </button>
-                </div>
+                <form action="{{ route('search.results') }}" method="POST">
+                    @csrf
+                    <div class="search-content">
+                        <textarea
+                            class="search-box"
+                            placeholder="Search for any vulnerability"
+                            rows="1"
+                            name="query"
+                            oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
+                        ></textarea>
+                        <button class="search-button">
+                            <div class="search-icon"></div>
+                        </button>
+                    </div>
+                </form>
             </div>
         </main>
     </div>
