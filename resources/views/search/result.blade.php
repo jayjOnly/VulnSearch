@@ -60,7 +60,7 @@
                             <p class="description">{{ Str::limit($vulnerability->description, 50) }}</p>
                             <div class="card-footer">
                                 <span class="cvss-score">CVSS Score: {{ $vulnerability->cvss_score }}</span>
-                                <a href={{ route('vulnerabilities.show', $vulnerability->id) }} class="details-link">View Details</a>
+                                <a href={{ route('vulnerabilities.show', ['id' => $vulnerability->id ]) }} class="details-link">View Details</a>
                             </div>
                         </div>
                     @endforeach

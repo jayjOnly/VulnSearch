@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Bookmark extends Model
-{
+{   
     protected $fillable = [
         'user_id', 
         'vulnerability_id'

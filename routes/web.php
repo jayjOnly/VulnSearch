@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/search', [SearchController::class, 'search'])->name('search.results');
 
     Route::get('/result', [SearchResultController::class, 'show'])->name('result');
-    Route::get('/vulnerabilities/{id}', [ResultDetailController::class, 'show'])->name('vulnerabilities.show');
+    Route::get('/vulnerabilities/{id}', [ResultDetailController::class, 'show'])->whereUuid('id')->name('vulnerabilities.show');
 
     Route::post('/bookmark/{vulnerabilityId}', [BookmarkController::class, 'toggleBookmark'])->name('bookmark.toggle');
     Route::get('/bookmark', [BookmarkController::class, 'showBookmarks'])->name('bookmarks.index');
