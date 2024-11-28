@@ -43,7 +43,7 @@
             <div class="details-section">
                 <h2 class="section-title">Source</h2>
                 <div class="section-content">
-                    <a href="#" class="source-link" target="_blank">https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}</a>
+                    <a href="https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}" class="source-link" target="_blank">https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}</a>
                 </div>
             </div>
         </div>
