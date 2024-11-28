@@ -22,7 +22,9 @@ class SearchController extends Controller
         $query = $request->input('query');
 
         // Mencari vulnerabilities berdasarkan deskripsi
-        $results = Vulnerability::where('description', 'like', '%' . $query . '%')->get();
+        $results = Vulnerability::where('description', 'like', '%' . $query . '%')
+            ->orderBy('cvss_score', 'desc') // Ganti 'desc' dengan 'asc' jika ingin ascending
+            ->get();
 
         return view('search.result', compact('results', 'query')); // Pastikan untuk membuat view ini
     }

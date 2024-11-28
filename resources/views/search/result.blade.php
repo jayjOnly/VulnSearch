@@ -40,22 +40,26 @@
                             switch ($vulnerability->severity) {
                                 case 'LOW':
                                     $severityClass = 'low';
+                                    $css = 'low';
                                     break;
                                 case 'MEDIUM':
                                     $severityClass = 'medium';
+                                    $css = 'medium';
                                     break;
                                 case 'HIGH':
                                     $severityClass = 'high';
+                                    $css = 'high';
                                     break;
-                                case 'N/A':
-                                    $severityClass = 'na';
+                                default:
+                                    $severityClass = 'n/a';
+                                    $css = 'na';
                                     break;
                             }
                         @endphp
-                        <div class="vulnerability-card {{ $severityClass }}">
+                        <div class="vulnerability-card {{ $css }}">
                             <div class="card-header">
                                 <h3 class="cve-id">{{ $vulnerability->cve_id }}</h3>
-                                <span class="severity-badge {{ $severityClass }}">{{ $vulnerability->severity }}</span>
+                                <span class="severity-badge {{ $css }}">{{ $severityClass }}</span>
                             </div>
                             <p class="description">{{ Str::limit($vulnerability->description, 50) }}</p>
                             <div class="card-footer">
@@ -66,46 +70,6 @@
                     @endforeach
                 </ul>
             @endif
-
-            <!-- High Severity -->
-            <div class="vulnerability-card high">
-                <div class="card-header">
-                    <h3 class="cve-id">CVE-2023-XXXX</h3>
-                    <span class="severity-badge high">High</span>
-                </div>
-                <p class="description">Lorem Ipsum Alatu Ipsum Karema</p>
-                <div class="card-footer">
-                    <span class="cvss-score">CVSS Score: 9.8</span>
-                    <a href="#" class="details-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- Medium Severity -->
-            <div class="vulnerability-card medium">
-                <div class="card-header">
-                    <h3 class="cve-id">CVE-2023-YYYY</h3>
-                    <span class="severity-badge medium">Medium</span>
-                </div>
-                <p class="description">Lorem Ipsum Alatu Ipsum Karema</p>
-                <div class="card-footer">
-                    <span class="cvss-score">CVSS Score: 6.5</span>
-                    <a href="#" class="details-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- Low Severity -->
-            <div class="vulnerability-card low">
-                <div class="card-header">
-                    <h3 class="cve-id">CVE-2023-ZZZZ</h3>
-                    <span class="severity-badge low">Low</span>
-                </div>
-                <p class="description">Lorem Ipsum Alatu Ipsum Karema</p>
-                <div class="card-footer">
-                    <span class="cvss-score">CVSS Score: 3.2</span>
-                    <a href="#" class="details-link">View Details</a>
-                </div>
-            </div>
-            
         </div>
     </div>
 </body>
@@ -150,6 +114,7 @@
         background: rgba(30, 30, 30, 0.9);
         border-radius: 0.5rem;
         padding: 1.25rem;
+        margin-bottom: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(5px);
         transition: transform 0.2s, box-shadow 0.2s;
@@ -171,6 +136,10 @@
 
     .vulnerability-card.low {
         border-left: 4px solid #00C851;
+    }
+
+    .vulnerability-card.na {
+        border-left: 4px solid #fefefe;
     }
 
     .card-header {
@@ -211,6 +180,12 @@
         background-color: rgba(0, 200, 81, 0.2);
         color: #00C851;
         border: 1px solid rgba(0, 200, 81, 0.3);
+    }
+
+    .severity-badge.na {
+        background-color: rgba(133, 133, 133, 0.2);
+        color: #fefefe;
+        border: 1px solid rgba(251, 252, 251, 0.3);
     }
 
     .description {
