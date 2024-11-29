@@ -40,12 +40,29 @@
                 </div>
             </div>
 
-            <div class="details-section">
-                <h2 class="section-title">Source</h2>
-                <div class="section-content">
-                    <a href="https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}" class="source-link" target="_blank">https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}</a>
+            @if($vulnerability->source == 'NVD')
+                <div class="details-section">
+                    <h2 class="section-title">Source</h2>
+                    <div class="section-content">
+                        <a href="https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}" class="source-link" target="_blank">
+                            https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="details-section">
+                    <h2 class="section-title">Source</h2>
+                    <div class="section-content">
+                        @php
+                            $exploitId = str_replace('EDB-', '', $vulnerability->cve_id);
+                        @endphp
+                        <a href="https://www.exploit-db.com/exploits/{{ $exploitId }}" class="source-link" target="_blank">
+                            https://www.exploit-db.com/exploits/{{ $exploitId }}
+                        </a>
+                    </div>
+                </div>
+            @endif
+            
         </div>
     </div>
 
