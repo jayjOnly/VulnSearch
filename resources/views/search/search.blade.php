@@ -11,7 +11,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">VulnSearch</div>
-            <div class="icon"></div>
+            <a href="{{ route('bookmarks.index') }}" class="bookmark-link">Bookmarks</a>
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                 @csrf
                 <button type="submit" class="logout-button">Log Out</button>
@@ -24,7 +24,7 @@
         <main class="main-content">
             <!-- Welcome Section -->
             <div class="welcome">
-                <h1>Hi, Jay</h1>
+                <h1>Hi, {{ Auth::user()->name }}</h1>
             </div>
 
             <!-- Search Box -->
@@ -289,5 +289,31 @@
         .search-box {
             font-size: 1rem;
         }
+    }
+
+    .bookmark-link {
+        margin-right: 1rem;
+        color: #ffffff;
+        text-decoration: none;
+        font-family: monospace;
+    }
+
+    .bookmark-link:hover {
+        text-decoration: underline;
+    }
+
+    .logout-button {
+        background-color: #ff4d4d;
+        color: #ffffff;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-family: monospace;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #ff1a1a;
     }
 </style>
