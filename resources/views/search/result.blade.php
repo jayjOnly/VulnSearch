@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vulnerability Search Results</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -61,19 +62,26 @@
                                 <h3 class="cve-id">{{ $vulnerability->cve_id }}</h3>
                                 <span class="severity-badge {{ $css }}">{{ $severityClass }}</span>
                             </div>
-                            <p class="description">{{ Str::limit($vulnerability->description, 50) }}</p>
+                            <p class="description">{{ Str::limit($vulnerability->description, 150) }}</p>
                             <div class="card-footer">
                                 <span class="cvss-score">CVSS Score: {{ $vulnerability->cvss_score }}</span>
                                 <a href={{ route('vulnerabilities.show', ['id' => $vulnerability->id ]) }} class="details-link">View Details</a>
                             </div>
                         </div>
                     @endforeach
+
+                    {{-- {{ $results->appends(['query' => $query])->links('vendor.pagination.tailwind') }} --}}
+                    
                 </ul>
             @endif
+
+            {{$results->appends(['query' => $query])->links('pagination::tailwind')}}
+
         </div>
     </div>
 </body>
 </html>
+
 <style>
     * {
         margin: 0;

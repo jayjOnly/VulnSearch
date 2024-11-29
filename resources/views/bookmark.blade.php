@@ -26,7 +26,7 @@
                                 case 'HIGH':
                                     $severityClass = 'high';
                                     break;
-                                case 'N/A':
+                                case '0':
                                     $severityClass = 'na';
                                     break;
                             }
@@ -34,9 +34,9 @@
                         <div class="vulnerability-card {{ $severityClass }}">
                             <div class="card-header">
                                 <h3 class="cve-id">{{ $bookmark->vulnerability->cve_id }}</h3>
-                                <span class="severity-badge {{ $severityClass }}">{{ $bookmark->vulnerability->severity }}</span>
+                                <span class="severity-badge {{ $severityClass }}">{{ $bookmark->vulnerability->severity==0? 'N/A': $bookmark->vulnerability->severity }}</span>
                             </div>
-                            <p class="description">{{ Str::limit($bookmark->vulnerability->description, 50) }}</p>
+                            <p class="description">{{ Str::limit($bookmark->vulnerability->description, 150) }}</p>
                             <div class="card-footer">
                                 <span class="cvss-score">CVSS Score: {{ $bookmark->vulnerability->cvss_score }}</span>
                                 <a href={{ route('vulnerabilities.show', $bookmark->vulnerability->id) }} class="details-link">View Details</a>
@@ -150,6 +150,12 @@
         background-color: rgba(0, 200, 81, 0.2);
         color: #00C851;
         border: 1px solid rgba(0, 200, 81, 0.3);
+    }
+
+    .severity-badge.na {
+        background-color: rgba(133, 133, 133, 0.2);
+        color: #fefefe;
+        border: 1px solid rgba(251, 252, 251, 0.3);
     }
 
     .description {
