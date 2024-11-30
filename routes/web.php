@@ -6,12 +6,11 @@ use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\search\SearchController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\search\SearchResultController;
 use App\Http\Controllers\search\ResultDetailController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'showHome'])->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
@@ -27,8 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [SearchController::class, 'show'])->name('search');
     Route::match(['get', 'post'], '/search/results', [SearchController::class, 'search'])->name('search.results');
     // Route::post('/search/results', [SearchController::class, 'search'])->name('search.results');
-
-    
 
     Route::get('/result', [SearchResultController::class, 'show'])->name('result');
     Route::get('/vulnerabilities/{id}', [ResultDetailController::class, 'show'])->whereUuid('id')->name('vulnerabilities.show');
