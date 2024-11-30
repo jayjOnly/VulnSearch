@@ -32,4 +32,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/bookmark/{vulnerabilityId}', [BookmarkController::class, 'toggleBookmark'])->name('bookmark.toggle');
     Route::get('/bookmark', [BookmarkController::class, 'showBookmarks'])->name('bookmarks.index');
+    
 });

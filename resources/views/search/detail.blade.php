@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="javascript:history.back()" class="back-btn">
+        <a href="javascript:void(0);" class="back-btn" onclick="goBack()">
             <i class="fas fa-arrow-left"></i> Back to Results
         </a>
 
@@ -113,9 +113,6 @@
                         return response.json();
                     })
                     .then(data => {
-                        // Debug: Log respon dari server
-                        console.log('Bookmark response:', data);
-    
                         if (data.status === 'added') {
                             icon.classList.remove('far');
                             icon.classList.add('fas');
@@ -123,6 +120,7 @@
                             icon.classList.remove('fas');
                             icon.classList.add('far');
                         }
+                        sessionStorage.setItem('dataUpdated', 'true');
                     })
                     .catch(error => {
                         // Tangani error
@@ -132,7 +130,13 @@
                 });
             }
         });
+
+        function goBack() {
+            // Kembali ke halaman sebelumnya
+            window.history.back();
+        }
     </script>
+
 </body>
 </html>
 
