@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite('resources/css/app.css')
     <title>Vulnerability Search Results</title>
 </head>
 <body>
@@ -44,6 +45,8 @@
                         </div>
                     @endforeach
                 </ul>
+                {{ $bookmarks->links() }}
+
             @endif    
         </div>
     </div>
@@ -89,13 +92,15 @@
         background: rgba(30, 30, 30, 0.9);
         border-radius: 0.5rem;
         padding: 1.25rem;
+        margin-bottom: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(5px);
         transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .vulnerability-card:hover {
-        transform: translateY(-2px);
+        transform: translateY(-4px);
+        transform: scale(1.02);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
     }
 
@@ -110,6 +115,10 @@
 
     .vulnerability-card.low {
         border-left: 4px solid #00C851;
+    }
+
+    .vulnerability-card.na {
+        border-left: 4px solid #fefefe;
     }
 
     .card-header {

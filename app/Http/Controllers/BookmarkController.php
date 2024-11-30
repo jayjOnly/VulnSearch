@@ -38,7 +38,7 @@ class BookmarkController extends Controller
     public function showBookmarks()
     {
         $userId = Auth::id();
-        $bookmarks = Bookmark::where('user_id', $userId)->with('vulnerability')->get();
+        $bookmarks = Bookmark::where('user_id', $userId)->with('vulnerability')->paginate(8);
 
         return view('bookmark', compact('bookmarks'));
     }

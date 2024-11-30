@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite('resources/css/app.css')
     <title>Vulnerability Search Results</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -69,13 +69,9 @@
                             </div>
                         </div>
                     @endforeach
-
-                    {{-- {{ $results->appends(['query' => $query])->links('vendor.pagination.tailwind') }} --}}
-                    
                 </ul>
+                {{$results->appends(['query' => $query])->links('pagination::tailwind')}}
             @endif
-
-            {{$results->appends(['query' => $query])->links('pagination::tailwind')}}
 
         </div>
     </div>
@@ -91,7 +87,10 @@
 
     h1{
         margin-bottom: 1rem;
+        font-size: 2rem;
+        font-weight:bold;
     }
+
 
     body {
         font-family: monospace;
@@ -129,7 +128,8 @@
     }
 
     .vulnerability-card:hover {
-        transform: translateY(-2px);
+        transform: translateY(-4px);
+        transform: scale(1.02);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
     }
 
