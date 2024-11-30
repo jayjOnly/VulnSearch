@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite('resources/css/app.css')
     <title>Vulnerability Search Results</title>
 </head>
 <body>
@@ -26,7 +27,7 @@
                                 case 'HIGH':
                                     $severityClass = 'high';
                                     break;
-                                case 'N/A':
+                                case '0':
                                     $severityClass = 'na';
                                     break;
                             }
@@ -34,9 +35,9 @@
                         <div class="vulnerability-card {{ $severityClass }}">
                             <div class="card-header">
                                 <h3 class="cve-id">{{ $bookmark->vulnerability->cve_id }}</h3>
-                                <span class="severity-badge {{ $severityClass }}">{{ $bookmark->vulnerability->severity }}</span>
+                                <span class="severity-badge {{ $severityClass }}">{{ $bookmark->vulnerability->severity==0? 'N/A': $bookmark->vulnerability->severity }}</span>
                             </div>
-                            <p class="description">{{ Str::limit($bookmark->vulnerability->description, 50) }}</p>
+                            <p class="description">{{ Str::limit($bookmark->vulnerability->description, 150) }}</p>
                             <div class="card-footer">
                                 <span class="cvss-score">CVSS Score: {{ $bookmark->vulnerability->cvss_score }}</span>
                                 <a href={{ route('vulnerabilities.show', $bookmark->vulnerability->id) }} class="details-link">View Details</a>
@@ -44,6 +45,8 @@
                         </div>
                     @endforeach
                 </ul>
+                {{ $bookmarks->links() }}
+
             @endif    
         </div>
     </div>
@@ -89,13 +92,15 @@
         background: rgba(30, 30, 30, 0.9);
         border-radius: 0.5rem;
         padding: 1.25rem;
+        margin-bottom: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(5px);
         transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .vulnerability-card:hover {
-        transform: translateY(-2px);
+        transform: translateY(-4px);
+        transform: scale(1.02);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
     }
 
@@ -110,6 +115,10 @@
 
     .vulnerability-card.low {
         border-left: 4px solid #00C851;
+    }
+
+    .vulnerability-card.na {
+        border-left: 4px solid #fefefe;
     }
 
     .card-header {
@@ -150,6 +159,12 @@
         background-color: rgba(0, 200, 81, 0.2);
         color: #00C851;
         border: 1px solid rgba(0, 200, 81, 0.3);
+    }
+
+    .severity-badge.na {
+        background-color: rgba(133, 133, 133, 0.2);
+        color: #fefefe;
+        border: 1px solid rgba(251, 252, 251, 0.3);
     }
 
     .description {

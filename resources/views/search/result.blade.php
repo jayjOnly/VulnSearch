@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @vite('resources/css/app.css')
     <title>Vulnerability Search Results</title>
 </head>
 <body>
@@ -61,7 +62,7 @@
                                 <h3 class="cve-id">{{ $vulnerability->cve_id }}</h3>
                                 <span class="severity-badge {{ $css }}">{{ $severityClass }}</span>
                             </div>
-                            <p class="description">{{ Str::limit($vulnerability->description, 50) }}</p>
+                            <p class="description">{{ Str::limit($vulnerability->description, 150) }}</p>
                             <div class="card-footer">
                                 <span class="cvss-score">CVSS Score: {{ $vulnerability->cvss_score }}</span>
                                 <a href={{ route('vulnerabilities.show', ['id' => $vulnerability->id ]) }} class="details-link">View Details</a>
@@ -69,11 +70,14 @@
                         </div>
                     @endforeach
                 </ul>
+                {{$results->appends(['query' => $query])->links('pagination::tailwind')}}
             @endif
+
         </div>
     </div>
 </body>
 </html>
+
 <style>
     * {
         margin: 0;
@@ -83,7 +87,10 @@
 
     h1{
         margin-bottom: 1rem;
+        font-size: 2rem;
+        font-weight:bold;
     }
+
 
     body {
         font-family: monospace;
@@ -121,7 +128,8 @@
     }
 
     .vulnerability-card:hover {
-        transform: translateY(-2px);
+        transform: translateY(-4px);
+        transform: scale(1.02);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
     }
 
