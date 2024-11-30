@@ -17,7 +17,27 @@
             <div class="card-header">
                 <div class="header-left">
                     <h1 class="cve-id">{{ $vulnerability->cve_id }}</h1>
-                    <span class="severity-badge {{ strtolower($vulnerability->severity) }}">{{ $vulnerability->severity }}</span>
+                    @php
+                    switch($vulnerability->severity) {
+                        case 'LOW':
+                            $css = 'low';
+                            $severityClass = 'LOW';
+                            break;
+                        case 'MEDIUM':
+                            $css = 'medium';
+                            $severityClass = 'MEDIUM';
+                            break;
+                        case 'HIGH':
+                            $css = 'high';
+                            $severityClass = 'HIGH';
+                            break;
+                        default:
+                            $css = 'na';
+                            $severityClass = 'N/A';
+                            break;
+                    }        
+                    @endphp
+                    <span class="severity-badge {{ $css }}">{{ $severityClass }}</span>
                 </div>
                 @auth
                     <button id="bookmarkBtn" class="bookmark-btn" data-vulnerability-id="{{ $vulnerability->id }}">
@@ -195,6 +215,30 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-top: 0.5rem;
+    }
+
+    .severity-badge.high {
+        background-color: rgba(255, 68, 68, 0.2);
+        color: #ff4444;
+        border: 1px solid rgba(255, 68, 68, 0.3);
+    }
+
+    .severity-badge.medium {
+        background-color: rgba(255, 187, 51, 0.2);
+        color: #ffbb33;
+        border: 1px solid rgba(255, 187, 51, 0.3);
+    }
+
+    .severity-badge.low {
+        background-color: rgba(0, 200, 81, 0.2);
+        color: #00C851;
+        border: 1px solid rgba(0, 200, 81, 0.3);
+    }
+
+    .severity-badge.na {
+        background-color: rgba(133, 133, 133, 0.2);
+        color: #fefefe;
+        border: 1px solid rgba(251, 252, 251, 0.3);
     }
 
     .details-section {

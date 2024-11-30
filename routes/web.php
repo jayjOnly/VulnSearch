@@ -25,7 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
     
     Route::get('/search', [SearchController::class, 'show'])->name('search');
-    Route::post('/search', [SearchController::class, 'search'])->name('search.results');
+    Route::match(['get', 'post'], '/search/results', [SearchController::class, 'search'])->name('search.results');
+    // Route::post('/search/results', [SearchController::class, 'search'])->name('search.results');
+
+    
 
     Route::get('/result', [SearchResultController::class, 'show'])->name('result');
     Route::get('/vulnerabilities/{id}', [ResultDetailController::class, 'show'])->whereUuid('id')->name('vulnerabilities.show');
