@@ -7,19 +7,8 @@
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">VulnSearch</div>
-            <a href="{{ route('bookmarks.index') }}" class="bookmark-button">Bookmarks</a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="logout-button">Log Out</button>
-            </form>
-        </div>
-    </header>
-
     <div class="container">
+        <x-nav-bar />
         <!-- Main Content -->
         <main class="main-content">
             <!-- Welcome Section -->
@@ -88,35 +77,6 @@
         flex-direction: column;
     }
 
-    /* Header */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.20rem 1.5rem;
-        background-color: rgba(26, 26, 26, 0.95);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-    }
-
-    .header-content {
-        font-family: 'GeistMono-Bold', sans-serif;
-        width: 100%;
-        max-width: 1475px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-        /* font-weight: bold; */
-        color: #ffffff;
-    }
-
     .icon {
         width: 32px;
         height: 32px;
@@ -159,7 +119,7 @@
             border-right-color: #ffffff;
         }
         to {
-            width: 130%;
+            width: 90%;
             border-right-color: transparent;
         }
     }
