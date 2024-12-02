@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="javascript:history.back()" class="back-btn">
+        <a href="javascript:void(0);" class="back-btn" onclick="goBack()">
             <i class="fas fa-arrow-left"></i> Back to Results
         </a>
 
@@ -60,12 +60,29 @@
                 </div>
             </div>
 
-            <div class="details-section">
-                <h2 class="section-title">Source</h2>
-                <div class="section-content">
-                    <a href="https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}" class="source-link" target="_blank">https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}</a>
+            @if($vulnerability->source == 'NVD')
+                <div class="details-section">
+                    <h2 class="section-title">Source</h2>
+                    <div class="section-content">
+                        <a href="https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}" class="source-link" target="_blank">
+                            https://nvd.nist.gov/vuln/detail/{{ $vulnerability->cve_id }}
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="details-section">
+                    <h2 class="section-title">Source</h2>
+                    <div class="section-content">
+                        @php
+                            $exploitId = str_replace('EDB-', '', $vulnerability->cve_id);
+                        @endphp
+                        <a href="https://www.exploit-db.com/exploits/{{ $exploitId }}" class="source-link" target="_blank">
+                            https://www.exploit-db.com/exploits/{{ $exploitId }}
+                        </a>
+                    </div>
+                </div>
+            @endif
+            
         </div>
     </div>
 
@@ -96,9 +113,6 @@
                         return response.json();
                     })
                     .then(data => {
-                        // Debug: Log respon dari server
-                        console.log('Bookmark response:', data);
-    
                         if (data.status === 'added') {
                             icon.classList.remove('far');
                             icon.classList.add('fas');
@@ -106,6 +120,7 @@
                             icon.classList.remove('fas');
                             icon.classList.add('far');
                         }
+                        sessionStorage.setItem('dataUpdated', 'true');
                     })
                     .catch(error => {
                         // Tangani error
@@ -115,7 +130,13 @@
                 });
             }
         });
+
+        function goBack() {
+            // Kembali ke halaman sebelumnya
+            window.history.back();
+        }
     </script>
+
 </body>
 </html>
 

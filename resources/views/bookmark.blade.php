@@ -50,6 +50,17 @@
             @endif    
         </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            // Cek jika dataUpdated ada di sessionStorage
+            if (sessionStorage.getItem('dataUpdated') === 'true') {
+                // Perbarui data di halaman ini (misalnya, melakukan fetch atau memuat ulang data)
+                location.reload(); // Refresh halaman untuk mendapatkan data terbaru
+                sessionStorage.removeItem('dataUpdated'); // Hapus status setelah halaman ter-update
+            }
+        };
+    </script>
 </body>
 </html>
 <style>
