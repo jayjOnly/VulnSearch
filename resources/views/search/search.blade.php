@@ -147,7 +147,7 @@
         white-space: nowrap;
         overflow: hidden;
         animation:
-            typing 2s steps(8),
+            typing 2s steps(20),
             cursor .4s step-end infinite alternate;
         width: 0;
         animation-fill-mode: forwards;
@@ -159,7 +159,7 @@
             border-right-color: #ffffff;
         }
         to {
-            width: 8ch;
+            width: 130%;
             border-right-color: transparent;
         }
     }
