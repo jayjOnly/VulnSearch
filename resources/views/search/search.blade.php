@@ -119,7 +119,7 @@
             border-right-color: #ffffff;
         }
         to {
-            width: 90%;
+            width: 130%;
             border-right-color: transparent;
         }
     }
