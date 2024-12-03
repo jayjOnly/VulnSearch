@@ -42,15 +42,50 @@
                         });
                     }
                 });
-
             </script>
-            <form action="{{ route('logout') }}" method="POST">
+
+            <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="logout-button">Log Out</button>
+                <button type="button" onclick="confirmLogout()" class="logout-button">Log Out</button>
             </form>
         </div>
     </div>
 </header>
+
+<!-- Modal HTML -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h2>Logout Confirmation</h2>
+        <p>Are you sure you want to logout?</p>
+        <div class="modal-buttons">
+            <button onclick="submitLogout()" class="confirm-button">Yes</button>
+            <button onclick="closeModal()" class="cancel-button">No</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function confirmLogout() {
+        document.getElementById('logoutModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function submitLogout() {
+        document.getElementById('logoutForm').submit();
+    }
+
+    // Close modal if user clicks outside
+    window.onclick = function(event) {
+        let modal = document.getElementById('logoutModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
 
 <style>
     .header {
@@ -153,4 +188,47 @@
         transform: scale(1);
     }
 
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        /* background-color: ; */
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+    }
+
+    .modal-buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .confirm-button, .cancel-button {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .confirm-button {
+        background-color: #ff4d4d;
+        color: white;
+    }
+
+    .cancel-button {
+        background-color: #6c757d;
+        color: white;
+    }
 </style>
