@@ -58,7 +58,7 @@
             <div class="details-section">
                 <h2 class="section-title">CVSS Score</h2>
                 <div class="section-content">
-                    <span class="cvss-score">{{ $vulnerability->cvss_score }}</span>
+                    <span class="cvss-score {{ $css }}">{{ $vulnerability->cvss_score }}</span>
                 </div>
             </div>
 
@@ -246,6 +246,22 @@
         background-color: rgba(133, 133, 133, 0.2);
         color: #fefefe;
         border: 1px solid rgba(251, 252, 251, 0.3);
+    }
+
+    .cvss-score.high {
+        color: #ff4444;
+    }
+
+    .cvss-score.medium {
+        color: #ffbb33;
+    }
+
+    .cvss-score.low {
+        color: #00C851;
+    }
+
+    .cvss-score.na {
+        color: #fefefe;
     }
 
     .details-section {
