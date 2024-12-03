@@ -55,7 +55,7 @@
 <!-- Modal HTML -->
 <div id="logoutModal" class="modal">
     <div class="modal-content">
-        <h2>Logout Confirmation</h2>
+        <h2 class="logout-confirmation-title">Logout Confirmation</h2>
         <p>Are you sure you want to logout?</p>
         <div class="modal-buttons">
             <button onclick="submitLogout()" class="confirm-button">Yes</button>
@@ -189,6 +189,7 @@
     }
 
     .modal {
+        font-family: 'GeistMono-reg', sans-serif;
         display: none;
         position: fixed;
         z-index: 1000;
@@ -200,35 +201,53 @@
     }
 
     .modal-content {
-        /* background-color: ; */
+        background-color: rgb(156, 156, 156); /* Grey with 50% transparency */
         margin: 15% auto;
         padding: 20px;
         border-radius: 8px;
-        width: 300px;
+        width: 500px;
         text-align: center;
+        margin-top: 20rem;
+    }
+
+    .logout-confirmation-title {
+        font-family: 'GeistMono-Bold', sans-serif;
+        font-size: 20px;
     }
 
     .modal-buttons {
         margin-top: 20px;
         display: flex;
         justify-content: center;
-        gap: 10px;
+        gap: 30px;
+        font-size: 20px;
     }
 
     .confirm-button, .cancel-button {
         padding: 8px 20px;
         border: none;
-        border-radius: 4px;
+        border-radius: 50px;
         cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .confirm-button {
-        background-color: #ff4d4d;
+        background-color: #cc0000;
         color: white;
     }
 
+    .confirm-button:hover {
+        background-color: #db2b2b;
+        color: black;
+    }
+
     .cancel-button {
-        background-color: #6c757d;
+        background-color: #495057;
         color: white;
+    }
+
+    .cancel-button:hover {
+        background-color: #6c757d;
+        color: black;
     }
 </style>
