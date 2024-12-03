@@ -6,11 +6,13 @@
     <title>Vulnerability Details</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
+    <x-nav-bar />
     <div class="container">
         <a href="javascript:void(0);" class="back-btn" onclick="goBack()">
-            <i class="fas fa-arrow-left"></i> Back to Results
+            <i class="fas fa-arrow-left"></i> Back 
         </a>
 
         <div class="vuln-details-card">
@@ -56,7 +58,7 @@
             <div class="details-section">
                 <h2 class="section-title">CVSS Score</h2>
                 <div class="section-content">
-                    <span class="cvss-score">{{ $vulnerability->cvss_score }}</span>
+                    <span class="cvss-score {{ $css }}">{{ $vulnerability->cvss_score }}</span>
                 </div>
             </div>
 
@@ -162,6 +164,7 @@
         max-width: 1000px;
         margin: 0 auto;
         padding: 2rem 1rem;
+        margin-top: 5rem;
     }
 
     .vuln-details-card {
@@ -172,7 +175,7 @@
         backdrop-filter: blur(5px);
     }
 
- .card-header {
+    .card-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -243,6 +246,22 @@
         background-color: rgba(133, 133, 133, 0.2);
         color: #fefefe;
         border: 1px solid rgba(251, 252, 251, 0.3);
+    }
+
+    .cvss-score.high {
+        color: #ff4444;
+    }
+
+    .cvss-score.medium {
+        color: #ffbb33;
+    }
+
+    .cvss-score.low {
+        color: #00C851;
+    }
+
+    .cvss-score.na {
+        color: #fefefe;
     }
 
     .details-section {

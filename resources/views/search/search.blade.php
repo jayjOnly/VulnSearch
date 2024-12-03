@@ -7,24 +7,13 @@
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">VulnSearch</div>
-            <a href="{{ route('bookmarks.index') }}" class="bookmark-button">Bookmarks</a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="logout-button">Log Out</button>
-            </form>
-        </div>
-    </header>
-
     <div class="container">
+        <x-nav-bar />
         <!-- Main Content -->
         <main class="main-content">
             <!-- Welcome Section -->
             <div class="welcome">
-                <h1>Hi, {{ Auth::user()->name }}</h1>
+                <h1>Hi, {{ explode(' ', Auth::user()->name)[0] }}</h1>
             </div>
 
             <!-- Search Box -->
@@ -32,13 +21,12 @@
                 <form action="{{ route('search.results') }}" method="POST">
                     @csrf
                     <div class="search-content">
-                        <textarea
+                        <input
                             class="search-box"
                             placeholder="Search for any vulnerability"
-                            rows="1"
+                            type="text"
                             name="query"
-                            oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
-                        ></textarea>
+                        >
                         <button class="search-button">
                             <div class="search-icon"></div>
                         </button>
@@ -47,14 +35,6 @@
             </div>
         </main>
     </div>
-
-    <script>
-        // Auto-resize textarea as content grows
-        document.querySelector('.search-box').addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    </script>
 </body>
 </html>
 
@@ -88,35 +68,6 @@
         flex-direction: column;
     }
 
-    /* Header */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.20rem 1.5rem;
-        background-color: rgba(26, 26, 26, 0.95);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-    }
-
-    .header-content {
-        font-family: 'GeistMono-Bold', sans-serif;
-        width: 100%;
-        max-width: 1475px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-        /* font-weight: bold; */
-        color: #ffffff;
-    }
-
     .icon {
         width: 32px;
         height: 32px;
@@ -147,7 +98,7 @@
         white-space: nowrap;
         overflow: hidden;
         animation:
-            typing 2s steps(20),
+            typing 1s steps(10),
             cursor .4s step-end infinite alternate;
         width: 0;
         animation-fill-mode: forwards;
@@ -159,7 +110,7 @@
             border-right-color: #ffffff;
         }
         to {
-            width: 130%;
+            width: 50%;
             border-right-color: transparent;
         }
     }
@@ -293,55 +244,5 @@
         .bookmark-button {
             text-align: center;
         }
-    }
-
-    .bookmark-button {
-        display: inline-block;
-        background-color: #1a73e8;
-        color: #ffffff;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        text-align: center;
-        font-size: 1rem;
-    }
-
-    .bookmark-button:hover {
-        background-color: #005bb5;
-        transform: scale(1.05);
-        text-decoration: none;
-    }
-
-    .bookmark-button:active {
-        background-color: #004494;
-        transform: scale(1);
-    }
-
-    .logout-button {
-        display: inline-block;
-        background-color: #ff4d4d;
-        color: #ffffff;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        cursor: pointer;
-        text-align: center;
-        font-size: 1rem;
-        font-family: 'GeistMono-Bold', sans-serif;
-    }
-
-    .logout-button:hover {
-        background-color: #ff1a1a;
-        transform: scale(1.05);
-        text-decoration: none;
-    }
-
-    .logout-button:active {
-        background-color: #cc0000;
-        transform: scale(1);
     }
 </style>

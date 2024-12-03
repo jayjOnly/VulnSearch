@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
     <title>Vulnerability Search Results</title>
 </head>
 <body>
+    <x-nav-bar />
     <div class="container">
-        <h1>Bookmark: </h1>
+        <h1>Bookmarks: </h1>
         <div class="results-container">
             @if($bookmarks->isEmpty())
                 <p>No Bookmark found.</p>
@@ -72,6 +74,8 @@
 
     h1{
         margin-bottom: 1rem;
+        font-size: 2.5rem;
+        font-weight: bold;
     }
 
     body {
@@ -90,6 +94,7 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem 1rem;
+        margin-top: 4rem;
     }
 
     /* Results styles */

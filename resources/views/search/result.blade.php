@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
     <title>Vulnerability Search Results</title>
 </head>
 <body>
+    <x-nav-bar />
     <div class="container">
         <!-- Search Box -->
         <div class="search-container">
             <form action="{{ route('search.results') }}" method="POST">
                 @csrf
                 <div class="search-content">
-                    <textarea
+                    <input
                         class="search-box"
                         placeholder="Search for any vulnerability"
-                        rows="1"
+                        type="text"
                         name="query"
-                        oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
-                    ></textarea>
+                    >
                     <button class="search-button">
                         <div class="search-icon"></div>
                     </button>
@@ -101,13 +102,17 @@
             linear-gradient(rgba(40, 40, 40, 0.2) 1px, transparent 1px),
             linear-gradient(90deg, rgba(40, 40, 40, 0.2) 1px, transparent 1px);
         background-size: 40px 40px;
+        padding-bottom: 2.5rem;
     }
 
     /* Container styles */
     .container {
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 2rem 1rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
 
     /* Results styles */
@@ -243,6 +248,7 @@
         padding: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin-bottom: 1rem;
+        margin-top: 8rem;
     }
     .search-content {
         display: flex;
