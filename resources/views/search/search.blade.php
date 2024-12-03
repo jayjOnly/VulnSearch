@@ -13,7 +13,7 @@
         <main class="main-content">
             <!-- Welcome Section -->
             <div class="welcome">
-                <h1>Hi, {{ Auth::user()->name }}</h1>
+                <h1>Hi, {{ explode(' ', Auth::user()->name)[0] }}</h1>
             </div>
 
             <!-- Search Box -->
@@ -21,13 +21,12 @@
                 <form action="{{ route('search.results') }}" method="POST">
                     @csrf
                     <div class="search-content">
-                        <textarea
+                        <input
                             class="search-box"
                             placeholder="Search for any vulnerability"
-                            rows="1"
+                            type="text"
                             name="query"
-                            oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
-                        ></textarea>
+                        >
                         <button class="search-button">
                             <div class="search-icon"></div>
                         </button>
@@ -36,14 +35,6 @@
             </div>
         </main>
     </div>
-
-    <script>
-        // Auto-resize textarea as content grows
-        document.querySelector('.search-box').addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    </script>
 </body>
 </html>
 
@@ -107,7 +98,7 @@
         white-space: nowrap;
         overflow: hidden;
         animation:
-            typing 2s steps(20),
+            typing 1s steps(10),
             cursor .4s step-end infinite alternate;
         width: 0;
         animation-fill-mode: forwards;
@@ -119,7 +110,7 @@
             border-right-color: #ffffff;
         }
         to {
-            width: 130%;
+            width: 50%;
             border-right-color: transparent;
         }
     }

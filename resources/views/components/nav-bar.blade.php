@@ -14,7 +14,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1.20rem 1.5rem;
+        padding: 0.25rem 1.5rem;
         background-color: rgba(26, 26, 26, 0.95);
         position: fixed;
         top: 0;
@@ -35,7 +35,7 @@
     }
 
     .logo {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: bold;
         text-decoration: none; /* Remove underline */
         color: #ffffff;

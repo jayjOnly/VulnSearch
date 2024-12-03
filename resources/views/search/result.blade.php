@@ -15,13 +15,12 @@
             <form action="{{ route('search.results') }}" method="POST">
                 @csrf
                 <div class="search-content">
-                    <textarea
+                    <input
                         class="search-box"
                         placeholder="Search for any vulnerability"
-                        rows="1"
+                        type="text"
                         name="query"
-                        oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
-                    ></textarea>
+                    >
                     <button class="search-button">
                         <div class="search-icon"></div>
                     </button>
@@ -103,6 +102,7 @@
             linear-gradient(rgba(40, 40, 40, 0.2) 1px, transparent 1px),
             linear-gradient(90deg, rgba(40, 40, 40, 0.2) 1px, transparent 1px);
         background-size: 40px 40px;
+        padding-bottom: 2.5rem;
     }
 
     /* Container styles */

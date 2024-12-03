@@ -74,7 +74,8 @@
 
     h1{
         margin-bottom: 1rem;
-        font-size: 20px;
+        font-size: 2.5rem;
+        font-weight: bold;
     }
 
     body {
