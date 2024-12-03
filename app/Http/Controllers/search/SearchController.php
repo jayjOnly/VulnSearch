@@ -23,11 +23,15 @@ class SearchController extends Controller
         $query = $request->input('query');
         $perPage = 8; // Number of results per page
 
+        $searchTerms = explode(' ', $query); // Memecah "IBM 10.0" menjadi ["IBM", "10.0"]
 
-        // Mencari vulnerabilities berdasarkan deskripsi
-        $results = Vulnerability::where('description', 'like', '%' . $query . '%')
-            ->orderBy('cvss_score', 'desc') // Ganti 'desc' dengan 'asc' jika ingin ascending
-            ->paginate($perPage);
+        $results = Vulnerability::where(function($q) use ($searchTerms) {
+            foreach($searchTerms as $term) {
+                $q->where('description', 'like', '%' . $term . '%');
+            }
+        })
+        ->orderBy('cvss_score', 'desc')
+        ->paginate($perPage);
 
 
         return view('search.result', compact('results', 'query')); // Pastikan untuk membuat view ini

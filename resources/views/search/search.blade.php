@@ -29,10 +29,10 @@
 
             <!-- Search Box -->
             <div class="search-container">
-                <form action="{{ route('search.results') }}" method="POST">
+                <form action="{{ route('search.results') }}" method="POST" autocomplete="off">
                     @csrf
                     <div class="search-content">
-                        <textarea
+                        <input
                             class="search-box"
                             placeholder="Search for any vulnerability"
                             rows="1"
