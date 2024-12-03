@@ -18,7 +18,7 @@
 
             <!-- Search Box -->
             <div class="search-container">
-                <form action="{{ route('search.results') }}" method="POST">
+                <form action="{{ route('search.results') }}" method="POST" autocomplete="off">
                     @csrf
                     <div class="search-content">
                         <input
