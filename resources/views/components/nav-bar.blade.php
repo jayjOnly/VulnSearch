@@ -261,13 +261,12 @@
         border:2px solid #5d646a;
         background-color: transparent;
         /* background-color: #495057; */
-        color: white;s
+        color: white;
     }
 
     .cancel-button:hover {
         background-color: #5d646a;
         transform: scale(1.05);
-        /* border:None; */
         box-shadow: 0px 3px 5px rgba(112, 112, 112, 0.411);
 
     }
