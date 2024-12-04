@@ -13,7 +13,7 @@
         <h1>Bookmarks: </h1>
         <div class="results-container">
             @if($bookmarks->isEmpty())
-                <p>No Bookmark found.</p>
+                <p class="not-found">No Bookmark found.</p>
             @else
                 <ul>
                     @foreach($bookmarks as $bookmark)
@@ -102,6 +102,10 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+    }
+
+    .not-found{
+        font-size:1.1rem;
     }
 
     .vulnerability-card {
