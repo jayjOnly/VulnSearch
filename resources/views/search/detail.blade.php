@@ -58,7 +58,11 @@
             <div class="details-section">
                 <h2 class="section-title">CVSS Score</h2>
                 <div class="section-content">
-                    <span class="cvss-score {{ $css }}">{{ $vulnerability->cvss_score }}</span>
+                    @if($vulnerability->cvss_score == 0)
+                        <span class="cvss-score {{ $css }}">{{ "N/A" }}</span>
+                    @else
+                        <span class="cvss-score {{ $css }}">{{ $vulnerability->cvss_score }}</span>
+                    @endif
                 </div>
             </div>
 

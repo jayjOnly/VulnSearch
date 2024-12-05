@@ -12,7 +12,7 @@
     <div class="container">
         <!-- Search Box -->
         <div class="search-container">
-            <form action="{{ route('search.results') }}" method="POST">
+            <form action="{{ route('search.results') }}" method="POST" autocomplete="off">
                 @csrf
                 <div class="search-content">
                     <input
@@ -65,7 +65,11 @@
                             </div>
                             <p class="description">{{ Str::limit($vulnerability->description, 150) }}</p>
                             <div class="card-footer">
-                                <span class="cvss-score">CVSS Score: {{ $vulnerability->cvss_score }}</span>
+                                @if($vulnerability->cvss_score == 0)
+                                    <span class="cvss-score">CVSS Score: {{ "N/A" }}</span>
+                                @else
+                                    <span class="cvss-score">CVSS Score: {{ $vulnerability->cvss_score }}</span>
+                                @endif
                                 <a href={{ route('vulnerabilities.show', ['id' => $vulnerability->id ]) }} class="details-link">View Details</a>
                             </div>
                         </div>
