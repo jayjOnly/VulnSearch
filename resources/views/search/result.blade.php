@@ -33,7 +33,7 @@
         <div class="results-container">
 
             @if($results->isEmpty())
-                <p>No vulnerabilities found.</p>
+                <p class="not-found">No vulnerabilities found.</p>
             @else
                 <ul>
                     @foreach($results as $vulnerability)
@@ -95,8 +95,9 @@
         font-size: 2rem;
         font-weight:bold;
     }
-
-
+    .not-found{
+        font-size:1.17rem;
+    }
     body {
         font-family: monospace;
         background-color: #1a1a1a;

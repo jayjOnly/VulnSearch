@@ -7,7 +7,8 @@
                 href="{{ route('bookmarks.index') }}" 
                 class="bookmark-button" 
                 id="bookmarkButton">
-                Bookmarks <i class="fas fa-bookmark" id="bookmarkIcon"></i>
+                <i class="fas fa-bookmark" id="bookmarkIcon"></i>
+                Bookmarks
             </a>
 
             <script>
@@ -46,7 +47,7 @@
 
             <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="button" onclick="confirmLogout()" class="logout-button">Log Out</button>
+                <button type="button" onclick="confirmLogout()" class="logout-button" id="logout-btn">Log Out</button>
             </form>
         </div>
     </div>
@@ -66,15 +67,19 @@
 
 
 <script>
+
     function confirmLogout() {
+        document.getElementById('logout-btn').classList.add('active');
         document.getElementById('logoutModal').style.display = 'block';
     }
 
     function closeModal() {
+        document.getElementById('logout-btn').classList.remove('active');
         document.getElementById('logoutModal').style.display = 'none';
     }
 
     function submitLogout() {
+        document.getElementById('logout-btn').classList.remove('active');
         document.getElementById('logoutForm').submit();
     }
 
@@ -83,8 +88,11 @@
         let modal = document.getElementById('logoutModal');
         if (event.target == modal) {
             modal.style.display = 'none';
+            document.getElementById('logout-btn').classList.remove('active');
         }
     }
+
+
 </script>
 
 <style>
@@ -93,13 +101,16 @@
         justify-content: space-between;
         align-items: center;
         padding: 0.25rem 1.5rem;
-        background-color: rgba(26, 26, 26, 0.95);
+        padding-botton: 2rem;
+        background-color: rgb(26, 26, 26);
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         z-index: 100;
         width: 100%;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.895);
+        /* box-shadow: 0px 2px 10px rgba(208, 208, 208, 0.135); */
     }
 
     .header-content {
@@ -128,7 +139,6 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: linear-gradient(45deg, #0d3c5b, #1a4e7b, #0d3c5b);
         color: #ffffff;
         text-decoration: none;
         padding: 0.5rem 1rem;
@@ -140,19 +150,20 @@
     }
 
     .bookmark-button:hover {
-        background: linear-gradient(45deg, #4c97f0, #1a73e8, #4c97f0);
+        background-color:#68686895;
         transform: scale(1.05);
         text-decoration: none;
     }
 
     .bookmark-button.active {
-        background: linear-gradient(45deg, #006b8f, #0086a1, #006b8f);
+        background-color:#68686895;
         color: #f1f1f1;
         font-weight: bold;
     }
 
     .bookmark-button.active:hover {
-        background: linear-gradient(45deg, #0083b0, #00b4db, #0083b0);
+        border: 1px solid rgb(255, 255, 255);/*awaiting approval*/
+        background-color:#68686895;
         color: #f1f1f1;
         font-weight: bold;
     }
@@ -164,11 +175,11 @@
 
     .logout-button {
         display: inline-block;
-        background-color: #ff4d4d;
+        background-color:transparent;
+        border:none;
         color: #ffffff;
         text-decoration: none;
         padding: 0.5rem 1rem;
-        border: none;
         border-radius: 50px;
         transition: background-color 0.3s ease, transform 0.2s ease;
         cursor: pointer;
@@ -178,13 +189,14 @@
     }
 
     .logout-button:hover {
-        background-color: #ff1a1a;
+        background-color: #f23f42;
+        /* border: 1.5px solid #6e070a; */
         transform: scale(1.05);
         text-decoration: none;
     }
 
-    .logout-button:active {
-        background-color: #cc0000;
+    .logout-button.active {
+        background-color: #F23F43;
         transform: scale(1);
     }
 
@@ -201,7 +213,8 @@
     }
 
     .modal-content {
-        background-color: rgb(156, 156, 156); /* Grey with 50% transparency */
+        background-color: rgb(24, 24, 24); 
+        box-shadow: -4px 6px 8px  rgba(0, 0, 0, 0.884);
         margin: 15% auto;
         padding: 20px;
         border-radius: 8px;
@@ -224,6 +237,7 @@
     }
 
     .confirm-button, .cancel-button {
+        font-family: 'GeistMono-Bold', sans-serif;
         padding: 8px 20px;
         border: none;
         border-radius: 50px;
@@ -232,22 +246,28 @@
     }
 
     .confirm-button {
-        background-color: #cc0000;
+        background-color:#f23f42;
         color: white;
     }
 
     .confirm-button:hover {
-        background-color: #db2b2b;
-        color: black;
+        /* background-color: #f69f08b4; */
+        transform: scale(1.05);
+        background-color:#f4484bf6;
+        box-shadow: 0px 3px 5px rgba(252, 22, 22, 0.5);
     }
 
     .cancel-button {
-        background-color: #495057;
+        border:2px solid #5d646a;
+        background-color: transparent;
+        /* background-color: #495057; */
         color: white;
     }
 
     .cancel-button:hover {
-        background-color: #6c757d;
-        color: black;
+        background-color: #5d646a;
+        transform: scale(1.05);
+        box-shadow: 0px 3px 5px rgba(112, 112, 112, 0.411);
+
     }
 </style>
