@@ -12,28 +12,42 @@ class SearchController extends Controller
         return view('search.search');
     }
 
-    // Mengambil hasil pencarian
     public function search(Request $request)
     {
         $request->validate([
             'query' => 'required|string|max:255',
             'page' => 'integer|min:1',
+            'severity' => 'string|nullable'
         ]);
 
         $query = $request->input('query');
-        $perPage = 8; // Number of results per page
+        $severity = $request->input('severity');
+        $perPage = 8;
 
-        $searchTerms = explode(' ', $query); // Memecah "IBM 10.0" menjadi ["IBM", "10.0"]
+        $searchTerms = explode(' ', $query);
 
-        $results = Vulnerability::where(function($q) use ($searchTerms) {
+        // Base query for search results
+        $baseQuery = Vulnerability::where(function($q) use ($searchTerms) {
             foreach($searchTerms as $term) {
                 $q->where('description', 'like', '%' . $term . '%');
             }
-        })
-        ->orderBy('cvss_score', 'desc')
-        ->paginate($perPage);
+        });
 
+        // Get counts from the filtered results
+        $counts = [
+            'HIGH' => (clone $baseQuery)->where('severity', 'HIGH')->count(),
+            'MEDIUM' => (clone $baseQuery)->where('severity', 'MEDIUM')->count(),
+            'LOW' => (clone $baseQuery)->where('severity', 'LOW')->count(),
+            'N/A' => (clone $baseQuery)->where('severity', 'N/A')->count(),
+        ];
 
-        return view('search.result', compact('results', 'query')); // Pastikan untuk membuat view ini
+        // Apply severity filter if provided
+        if ($severity) {
+            $baseQuery->where('severity', $severity);
+        }
+
+        $results = $baseQuery->orderBy('cvss_score', 'desc')->paginate($perPage);
+
+        return view('search.result', compact('results', 'query', 'severity', 'counts'));
     }
 }
