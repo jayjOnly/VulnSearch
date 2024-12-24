@@ -203,7 +203,7 @@
     }
 
     .login-link a {
-        color: #1a73e8;
+        color: #12e640;
         text-decoration: none;
     }
 

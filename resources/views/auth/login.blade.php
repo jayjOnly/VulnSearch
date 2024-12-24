@@ -189,7 +189,7 @@
     }
 
     .register-link a {
-        color: #1a73e8;
+        color: #d73737;
         text-decoration: none;
     }
 
