@@ -26,23 +26,22 @@ class SearchController extends Controller
 
         $searchTerms = explode(' ', $query);
 
-        // Base query for search results
         $baseQuery = Vulnerability::where(function($q) use ($searchTerms) {
             foreach($searchTerms as $term) {
                 $q->where('description', 'like', '%' . $term . '%');
             }
         });
 
-        // Get counts from the filtered results
         $counts = [
             'HIGH' => (clone $baseQuery)->where('severity', 'HIGH')->count(),
             'MEDIUM' => (clone $baseQuery)->where('severity', 'MEDIUM')->count(),
             'LOW' => (clone $baseQuery)->where('severity', 'LOW')->count(),
-            'N/A' => (clone $baseQuery)->where('severity', 'N/A')->count(),
+            'N/A' => (clone $baseQuery)->where('severity', '0')->count(),
         ];
 
-        // Apply severity filter if provided
-        if ($severity) {
+        if ($severity === 'N/A') {
+            $baseQuery->where('severity', '0');
+        } elseif ($severity) {
             $baseQuery->where('severity', $severity);
         }
 
