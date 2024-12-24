@@ -7,46 +7,34 @@
     <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">VulnSearch</div>
-            <div class="icon"></div>
-        </div>
-    </header>
-
     <div class="container">
+        <x-nav-bar />
         <!-- Main Content -->
         <main class="main-content">
             <!-- Welcome Section -->
             <div class="welcome">
-                <h1>Hi, Jay</h1>
+                <h1>Hi, {{ explode(' ', Auth::user()->name)[0] }}</h1>
             </div>
 
             <!-- Search Box -->
             <div class="search-container">
-                <div class="search-content">
-                    <textarea
-                        class="search-box"
-                        placeholder="Search for any vulnerability"
-                        rows="1"
-                        oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"
-                    ></textarea>
-                    <button class="search-button">
-                        <div class="search-icon"></div>
-                    </button>
-                </div>
+                <form action="{{ route('search.results') }}" method="POST" autocomplete="off">
+                    @csrf
+                    <div class="search-content">
+                        <input
+                            class="search-box"
+                            placeholder="Search for any vulnerability"
+                            type="text"
+                            name="query"
+                        >
+                        <button class="search-button">
+                            <div class="search-icon"></div>
+                        </button>
+                    </div>
+                </form>
             </div>
         </main>
     </div>
-
-    <script>
-        // Auto-resize textarea as content grows
-        document.querySelector('.search-box').addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    </script>
 </body>
 </html>
 
@@ -80,35 +68,6 @@
         flex-direction: column;
     }
 
-    /* Header */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.20rem 1.5rem;
-        background-color: rgba(26, 26, 26, 0.95);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-    }
-
-    .header-content {
-        font-family: 'GeistMono-Bold', sans-serif;
-        width: 100%;
-        max-width: 1475px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-        /* font-weight: bold; */
-        color: #ffffff;
-    }
-
     .icon {
         width: 32px;
         height: 32px;
@@ -139,7 +98,7 @@
         white-space: nowrap;
         overflow: hidden;
         animation:
-            typing 2s steps(8),
+            typing 1s steps(10),
             cursor .4s step-end infinite alternate;
         width: 0;
         animation-fill-mode: forwards;
@@ -151,7 +110,7 @@
             border-right-color: #ffffff;
         }
         to {
-            width: 8ch;
+            width: 50%;
             border-right-color: transparent;
         }
     }
@@ -280,6 +239,10 @@
 
         .search-box {
             font-size: 1rem;
+        }
+
+        .bookmark-button {
+            text-align: center;
         }
     }
 </style>

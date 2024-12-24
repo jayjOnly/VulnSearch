@@ -23,7 +23,7 @@
                 <a href="{{route('search')}}" class="try-now-button">Try Now!</a>
             </div>
             <div class="image-placeholder">
-                <img src="{{ asset('images/gambar.png') }}" alt="image" class="resize-image">
+                <img src="{{ asset('images/VulnSearch-logo.jpg') }}" alt="image" class="resize-image">
             </div>
         </div>
     </div>
@@ -134,7 +134,7 @@
     /* Image placeholder styles */
     .image-placeholder {
         width: 45%;
-        height: 500px;
+        height: 650px;
         background-color: #333;
         display: flex;
         align-items: center;
